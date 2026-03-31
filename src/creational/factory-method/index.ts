@@ -2,6 +2,7 @@ import { NotificationFactory } from "./NotificationFactory";
 import { EmailFactory } from "./EmailFactory";
 import { SmsFactory } from "./SmsFactory";
 import { PushFactory } from "./PushFactory";
+import {TgFactory} from "./TgFactory";
 
 export function demo() {
   console.log("=== Factory Method (Notifications) ===");
@@ -10,6 +11,7 @@ export function demo() {
     new EmailFactory(),
     new SmsFactory(),
     new PushFactory(),
+    new TgFactory()
   ];
 
   for (const factory of factories) {

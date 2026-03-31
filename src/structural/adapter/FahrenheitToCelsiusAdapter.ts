@@ -6,6 +6,6 @@ export class FahrenheitToCelsiusAdapter implements CelsiusSensor {
 
   getTemperatureCelsius(): number {
     const f = this.sensor.getTemperature();
-    return Math.round(((f - 32) * 5) / 9 * 10) / 10;
+    return (Math.round(((f - 32) * 5) / 9 * 10) / 10) + 273.15;
   }
 }
