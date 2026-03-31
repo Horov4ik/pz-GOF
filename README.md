@@ -1,82 +1,87 @@
-# Practical lesson pz-GOF  
-# Реалізація GOF патернів проєктування  
+# Practical lesson pz-GOF
+# Реалізація GOF патернів проєктування
 
-> У цьому занятті студенти отримують практичний досвід імплементації класичних патернів проєктування (GoF — Gang of Four).  
-> Мета — навчитися застосовувати породжувальні, структурні та поведінкові патерни для покращення архітектури програмних рішень.
+> Практична робота з імплементації 6 класичних патернів GoF на TypeScript.
 
+## Реалізовані патерни
 
-## What need to do:
-* Ознайомитися з основними групами патернів GoF:
-  * Породжувальні (Creational)
-  * Структурні (Structural)
-  * Поведінкові (Behavioral)
-* Реалізувати:
-  * **2 породжувальні патерни** (наприклад: Factory Method, Abstract Factory, Builder, Singleton, Prototype)
-  * **2 структурні патерни** (наприклад: Adapter, Facade, Decorator, Composite, Proxy, Bridge)
-  * **2 поведінковий патерн** (наприклад: Strategy, Observer, Command, Iterator, Chain of Responsibility)
-* Продемонструвати роботу кожного патерна (консольний приклад або простий сценарій)
-* Пояснити, яку проблему вирішує кожен патерн
-* Порівняти, як патерни покращують архітектуру коду порівняно з «анти-прикладами»
-* Підготувати коротку документацію в README.md
+### Породжувальні (Creational)
 
+| Патерн | Опис | Приклад |
+|--------|------|---------|
+| **Singleton** | Гарантує існування лише одного екземпляра класу. | `Logger` — єдиний логер для всієї програми. Будь-який виклик `getInstance()` повертає той самий об'єкт. |
+| **Factory Method** | Делегує створення об'єктів підкласам, щоб клієнт не залежав від конкретних класів. | Система сповіщень: `EmailFactory`, `SmsFactory`, `PushFactory` створюють різні типи `Notification`. |
 
-## Acceptance criteria
-* Використовуючи мову програмування Typescript
-* Реалізовано **мінімум 5 патернів**:
-  * 2 породжувальні
-  * 2 структурні
-  * 2 поведінковий
-* Кожен патерн:
-  * реалізований у окремій директорії  
-  * має зрозумілий приклад застосування  
-  * має коротке пояснення призначення  
-  * демонструє очікувану роботу (через console.log або unit-тест)
-* Код структурований за групами патернів
-* README.md містить:
-  * опис реалізованих патернів  
-  * приклади запуску  
-  * короткі висновки  
-* Самостійна робота виконана:
-  * додаткові патерни / додаткові приклади / альтернативні реалізації (опціонально)
-* Проєкт успішно запускається
+### Структурні (Structural)
 
-## Directory Structure
+| Патерн | Опис | Приклад |
+|--------|------|---------|
+| **Adapter** | Перетворює інтерфейс одного класу на інший, який очікує клієнт. | Сенсор температури: старий API повертає °F, адаптер конвертує в °C. |
+| **Facade** | Спрощений інтерфейс для складної підсистеми. | Домашній кінотеатр: один виклик `watchMovie()` замість керування TV, звуком, плеєром, освітленням окремо. |
+
+### Поведінкові (Behavioral)
+
+| Патерн | Опис | Приклад |
+|--------|------|---------|
+| **Strategy** | Дозволяє динамічно змінювати алгоритм без зміни контексту. | Оплата кошика: `CreditCardPayment`, `PayPalPayment`, `CashPayment` — різні стратегії для одного `checkout()`. |
+| **Observer** | Об'єкти-підписники автоматично отримують сповіщення при зміні стану. | Event-система: `LogObserver` та `EmailObserver` підписуються на події магазину. |
+
+## Як патерни покращують архітектуру
+
+**Без патернів (анти-приклад):** великі `if/else` або `switch` блоки, жорстка зв'язність між класами, дублювання коду, складність у тестуванні та розширенні.
+
+**З патернами:**
+- **Singleton** — замість глобальних змінних, контрольований доступ до єдиного екземпляра
+- **Factory Method** — додавання нового типу не вимагає змін у клієнтському коді (Open/Closed Principle)
+- **Adapter** — інтеграція зовнішніх бібліотек без зміни їх коду
+- **Facade** — клієнт не знає про внутрішню складність підсистеми
+- **Strategy** — заміна алгоритму «на льоту» без `if/else`
+- **Observer** — слабка зв'язність між компонентами, легке додавання нових підписників
+
+## Запуск
+
+```bash
+# Встановити залежності
+cd pz-GOF
+npm install
+
+# Запустити всі патерни
+npm start
+
+# Або окремо кожен патерн
+npm run singleton
+npm run factory
+npm run adapter
+npm run facade
+npm run strategy
+npm run observer
+```
+
+## Структура проєкту
 
 ```
-├── pz-GOF
-│   ├── src
-│   │   ├── creational
-│   │   │   ├── factory-method
-│   │   │   ├── builder
-│   │   │   └── singleton
-│   │   ├── structural
-│   │   │   ├── adapter
-│   │   │   ├── facade
-│   │   │   └── decorator
-│   │   ├── behavioral
-│   │   │   ├── strategy
-│   │   │   └── observer
-│   ├── examples
-│   │   ├── run-all.ts
-│   ├── .editorconfig
-│   ├── .gitignore
-│   ├── package.json
-│   ├── README.md
-└──
-
+pz-GOF/
+├── src/
+│   ├── creational/
+│   │   ├── singleton/index.ts
+│   │   └── factory-method/index.ts
+│   ├── structural/
+│   │   ├── adapter/index.ts
+│   │   └── facade/index.ts
+│   └── behavioral/
+│       ├── strategy/index.ts
+│       └── observer/index.ts
+├── examples/
+│   └── run-all.ts
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
-## Useful links
 
-[Refactoring Guru — Патерни проєктування](https://refactoring.guru/uk/design-patterns)
+## Висновки
 
-[Design Patterns in JavaScript](https://www.patterns.dev/posts/classic-design-patterns/)
-
-[Head First Design Patterns (book)](https://www.oreilly.com/library/view/head-first-design/0596007124/)
-
-[JavaScript Design Patterns — Addy Osmani](https://addyosmani.com/resources/essentialjsdesignpatterns/book/)
-
-[Gang of Four (GoF) Patterns Overview](https://www.digitalocean.com/community/tutorials/gangs-of-four-gof-design-patterns)
-
-[Ти мусиш знати ці патерни проєктування!](https://www.youtube.com/watch?v=Dc6AEjHvpP8)
-
-[abstract-factory-pattern](https://medium.com/@artemkhrenov/abstract-factory-pattern-implementation-in-javascript-7d05c99842b4)
+- GoF-патерни розв'язують типові архітектурні проблеми та зменшують зв'язність коду
+- Породжувальні патерни інкапсулюють логіку створення об'єктів
+- Структурні патерни спрощують взаємодію між компонентами
+- Поведінкові патерни організовують комунікацію між об'єктами
+- Кожен патерн має чітку сферу застосування — не варто використовувати їх «про запас»
