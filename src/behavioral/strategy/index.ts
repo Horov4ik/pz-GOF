@@ -1,51 +1,8 @@
-// ========== Strategy ==========
-// Проблема: потрібно динамічно змінювати алгоритм (наприклад, спосіб
-// оплати, сортування, стиснення) без зміни основного коду.
-// Рішення: виділити кожен алгоритм в окремий клас із спільним інтерфейсом.
+import { ShoppingCart } from "./ShoppingCart";
+import { CreditCardPayment } from "./CreditCardPayment";
+import { PayPalPayment } from "./PayPalPayment";
+import { CashPayment } from "./CashPayment";
 
-interface PaymentStrategy {
-  pay(amount: number): string;
-}
-
-class CreditCardPayment implements PaymentStrategy {
-  constructor(private cardNumber: string) {}
-  pay(amount: number): string {
-    return `Оплата ${amount} грн карткою *${this.cardNumber.slice(-4)}`;
-  }
-}
-
-class PayPalPayment implements PaymentStrategy {
-  constructor(private email: string) {}
-  pay(amount: number): string {
-    return `Оплата ${amount} грн через PayPal (${this.email})`;
-  }
-}
-
-class CashPayment implements PaymentStrategy {
-  pay(amount: number): string {
-    return `Оплата ${amount} грн готівкою`;
-  }
-}
-
-// Контекст
-class ShoppingCart {
-  private items: { name: string; price: number }[] = [];
-
-  addItem(name: string, price: number): void {
-    this.items.push({ name, price });
-  }
-
-  getTotal(): number {
-    return this.items.reduce((sum, item) => sum + item.price, 0);
-  }
-
-  checkout(strategy: PaymentStrategy): string {
-    const total = this.getTotal();
-    return strategy.pay(total);
-  }
-}
-
-// --- Демонстрація ---
 export function demo() {
   console.log("=== Strategy (Payment) ===");
 

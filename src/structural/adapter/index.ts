@@ -1,31 +1,7 @@
-// ========== Adapter ==========
-// Проблема: маємо стару бібліотеку (або зовнішній API) з несумісним
-// інтерфейсом, але потрібно використати її у новому коді.
-// Рішення: обгортка-адаптер перетворює інтерфейс одного класу на інший.
+import { CelsiusSensor } from "./CelsiusSensor";
+import { FahrenheitSensor } from "./FahrenheitSensor";
+import { FahrenheitToCelsiusAdapter } from "./FahrenheitToCelsiusAdapter";
 
-// "Стара" бібліотека, яка повертає температуру у Фаренгейтах
-class FahrenheitSensor {
-  getTemperature(): number {
-    return 98.6; // температура тіла в °F
-  }
-}
-
-// Інтерфейс, який очікує наш додаток (Цельсій)
-interface CelsiusSensor {
-  getTemperatureCelsius(): number;
-}
-
-// Адаптер
-class FahrenheitToCelsiusAdapter implements CelsiusSensor {
-  constructor(private sensor: FahrenheitSensor) {}
-
-  getTemperatureCelsius(): number {
-    const f = this.sensor.getTemperature();
-    return Math.round(((f - 32) * 5) / 9 * 10) / 10;
-  }
-}
-
-// --- Демонстрація ---
 export function demo() {
   console.log("=== Adapter (Temperature Sensor) ===");
 
